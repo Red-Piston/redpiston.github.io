@@ -13,10 +13,18 @@
         <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Связаться с нами</h2>
-  <textarea id="message" placeholder="Введите сообщение..."></textarea>
-  <button onclick="sendMessage()">Отправить</button>
+    <h2 style="font-size: 35px; color: #ff2727; text-shadow: 0 0 15px #d44d4d;">ООО Красный Поршень</h2>
+    <h2 style="font-size: 25px;">Форма заказа блоков</h2>
+
+  <input class="order-input" type="text" id="nickname" placeholder="Никнейм" required />
+  <input class="order-input" type="text" id="coords" placeholder="Координаты (XYZ)" required />
+  <textarea class="order-input" id="blocks" placeholder="Список блоков (например: Камень x32, Земля x64)" rows="5" required></textarea>
+
+  <button onclick="sendOrder()">Отправить</button>
   <div id="status"></div>
-  <script src="script.js"></script>
+
+<div style="color: #818181;">
+  <a href="https://camper.isvery.fun" style="text-decoration: none; color: #7a7a7a;">made by camper_crafting</a>
+</div>
 </body>
 </html>

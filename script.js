@@ -1,28 +1,33 @@
-  async function sendMessage() {
-    const message = document.getElementById("message").value;
-    const status = document.getElementById("status");
-    status.textContent = "Отправка...";
+    async function sendOrder() {
+      const nickname = document.getElementById('nickname').value.trim();
+      const coords = document.getElementById('coords').value.trim();
+      const blocks = document.getElementById('blocks').value.trim();
+      const status = document.getElementById('status');
 
-    try {
-      const response = await fetch("https://redpistonbot.vercel.app/api/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ text: message })  // <-- ВАЖНО!
-      });
-
-      const data = await response.json();
-
-      if (response.status === 429) {
-        status.textContent = data.error || "Подождите перед следующей отправкой.";
-      } else if (response.ok) {
-        status.textContent = "Отправлено!";
-      } else {
-        status.textContent = data.error || "Ошибка при отправке.";
+      if (!nickname || !coords || !blocks) {
+        status.textContent = "Пожалуйста, заполните все поля.";
+        return;
       }
 
-    } catch (e) {
-      status.textContent = "Ошибка соединения.";
+      status.textContent = "Отправка...";
+
+      try {
+        const res = await fetch("https://redpistonbot.vercel.app/api/send", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nickname,
+            coords,
+            blocks
+          }),
+        });
+
+        const data = await res.json();
+        status.textContent = data.message || "Отправлено.";
+      } catch (err) {
+        status.textContent = "Ошибка при отправке.";
+        console.error(err);
+      }
     }
-  }
