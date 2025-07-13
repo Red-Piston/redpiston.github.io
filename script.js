@@ -9,7 +9,7 @@
 
       status.textContent = "Отправка...";
       try {
-        const res = await fetch("https://your-vercel-app.vercel.app/api/send", {
+        const res = await fetch("https://redpistonbot.vercel.app/api/send", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: msg }),
