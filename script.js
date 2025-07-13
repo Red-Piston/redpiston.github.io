@@ -12,7 +12,7 @@
       statusDiv.textContent = "Отправка...";
       statusDiv.className = "";
       try {
-        const res = await fetch('https://redpistonbot.vercel.app/api/send', {
+        const res = await fetch('https://redpistonbot.vercel.app/api/index', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: message })
