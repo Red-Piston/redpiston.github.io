@@ -16,12 +16,14 @@
     <h2 style="font-size: 35px; color: #ff2727; text-shadow: 0 0 15px #d44d4d;">ООО Красный Поршень</h2>
     <h2 style="font-size: 25px;">Форма заказа блоков</h2>
 
-  <input class="order-input" type="text" id="username" placeholder="Никнейм" required />
+<form id="orderForm"></form>
+  <input class="order-input" type="text" id="nickname" placeholder="Никнейм" required />
   <input class="order-input" type="text" id="coords" placeholder="Координаты (XYZ)" required />
   <textarea class="order-input" id="blocks" placeholder="Список блоков (например: Камень x32, Земля x64)" rows="5" required></textarea>
 
-  <button id="sendBtn">Отправить</button>
+  <button type="submit">Отправить</button>
   <div id="status"></div>
+</form>
 
 <div style="color: #818181;">
   <a href="https://camper.isvery.fun" style="text-decoration: none; color: #7a7a7a;">made by camper_crafting</a>
