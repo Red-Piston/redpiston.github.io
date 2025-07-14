@@ -1,33 +1,40 @@
-    async function sendOrder() {
-      const nickname = document.getElementById('nickname').value.trim();
-      const coords = document.getElementById('coords').value.trim();
-      const blocks = document.getElementById('blocks').value.trim();
-      const status = document.getElementById('status');
+function sendOrder() {
+  const username = document.getElementById("username").value;
+  const coords = document.getElementById("coords").value;
+  const blocks = document.getElementById("blocks").value;
 
-      if (!nickname || !coords || !blocks) {
-        status.textContent = "Пожалуйста, заполните все поля.";
-        return;
+  if (!username || !coords || !blocks) {
+    alert("Заполни все поля!");
+    return;
+  }
+
+  const items = blocks.split("\n").map(line => {
+    const [name, countRaw, priceRaw] = line.split(",").map(e => e.trim());
+    return {
+      name,
+      count: parseInt(countRaw),
+      price: parseInt(priceRaw),
+    };
+  });
+
+  fetch("https://redpistonbot.vercel.app/api/send", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username,
+      coords,
+      ip: "Неизвестен", // Или получи с сервиса ipify.org
+      items
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        alert("Заказ отправлен!");
+      } else {
+        alert("Ошибка отправки.");
       }
-
-      status.textContent = "Отправка...";
-
-      try {
-        const res = await fetch("https://redpistonbot.vercel.app/api/send", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nickname,
-            coords,
-            blocks
-          }),
-        });
-
-        const data = await res.json();
-        status.textContent = data.message || "Отправлено.";
-      } catch (err) {
-        status.textContent = "Ошибка при отправке.";
-        console.error(err);
-      }
-    }
+    });
+}
