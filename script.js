@@ -1,4 +1,16 @@
+window.onload = function () {
+  const btn = document.getElementById("sendBtn");
+  if (!btn) {
+    alert("Кнопка не найдена!");
+    return;
+  }
+
+  btn.onclick = sendOrder;
+};
+
 function sendOrder() {
+  console.log("Кнопка нажата!");
+
   const username = document.getElementById("username").value;
   const coords = document.getElementById("coords").value;
   const blocks = document.getElementById("blocks").value;
@@ -25,16 +37,21 @@ function sendOrder() {
     body: JSON.stringify({
       username,
       coords,
-      ip: "Неизвестен", // Или получи с сервиса ipify.org
+      ip: "Неизвестен",
       items
     })
   })
     .then(res => res.json())
     .then(data => {
+      console.log(data);
       if (data.ok) {
         alert("Заказ отправлен!");
       } else {
         alert("Ошибка отправки.");
       }
+    })
+    .catch(err => {
+      console.error("Ошибка запроса:", err);
+      alert("Не удалось отправить заказ.");
     });
 }
